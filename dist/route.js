@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const route_1 = require("../src/modules/user/route/route");
+const route_2 = require("../src/modules/auth/route/route");
+const route_3 = require("./modules/comment/route/route");
+const route_4 = require("./modules/post/route/route");
+const guard_1 = require("./lib/auth/guard");
+exports.router = (0, express_1.Router)();
+exports.router.use('/auth', route_2.authRouter);
+exports.router.use('/user', guard_1.authGuard, route_1.userRouter);
+exports.router.use('/post', guard_1.authGuard, route_4.postRouter);
+exports.router.use('/comments', guard_1.authGuard, route_3.commentRouter);
